@@ -1,18 +1,18 @@
 // gpr.v
-// 汎用レジスタファイル 2read1write
+// general purpose register. 2 reads and 1 write
 
 `default_nettype none
 
 module GPR #(parameter _DELAY = 10)
    (
-    input wire 	      iRD_EN, // read enable
-    input wire [2:0]  iRDREG0, // 読み出しレジスタ番号0
-    input wire [2:0]  iRDREG1, // 読み出しレジスタ番号1
-    input wire [2:0]  iWRREG, // 書きこみレジスタ番号
-    input wire 	      iWR_EN, // write enable
-    input wire [11:0] iDATA, // 書きこみデータ
-    output reg [11:0] oDATA0, // 読み出しレジスタ番号0の出力
-    output reg [11:0] oDATA1 // 読み出しレジスタ番号1の出力
+    input wire 	      iRD_EN,	// read enable
+    input wire [2:0]  iRDREG0,	// read register 0
+    input wire [2:0]  iRDREG1,	// read register 1
+    input wire [2:0]  iWRREG,	// write register
+    input wire 	      iWR_EN,	// write enable
+    input wire [11:0] iDATA,	// data to be written
+    output reg [11:0] oDATA0,	// output from read register 0
+    output reg [11:0] oDATA1	// output from read register 1;
     );
    reg [11:0] 		      _r[0:7];
    always @(iRD_EN) #_DELAY begin

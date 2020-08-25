@@ -7,10 +7,10 @@
 module ADDR_GEN #(parameter _DELAY = 700)
   (
    input wire 	     iENABLE,
-   input wire        iADD, // 1ならiOP1とiOP2の和。0ならiOP2をそのまま出力
-   input wire [11:0] iOP1, // 第1オペランド
-   input wire [11:0] iOP2, // 第2オペランド
-   output reg [11:0] oRES  // 演算結果
+   input wire        iADD, // 1: add iOP1 and iOP2, 0: iOP2 goes through
+   input wire [11:0] iOP1, // operand 1
+   input wire [11:0] iOP2, // operand 2
+   output reg [11:0] oRES  // result of operation
    );
 
    initial begin
@@ -19,8 +19,8 @@ module ADDR_GEN #(parameter _DELAY = 700)
 
    always @(iENABLE) #_DELAY begin
       if (iENABLE) begin 
-	 if (iADD) oRES <= iOP1 + iOP2;
-	 else oRES <= iOP2;	// 絶対アドレス
+	 if (iADD) oRES <= iOP1 + iOP2; // relative address
+	 else oRES <= iOP2;	// absolute address
       end
       else oRES <= 12'bzzzz_zzzz_zzzz;
    end

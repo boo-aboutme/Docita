@@ -5,9 +5,9 @@
 `default_nettype none
 
 module CLK_GEN#(
-		parameter _HALF_CLK = 500, // システムクロック半周期
-		parameter _FULL_CLK = _HALF_CLK * 2, // システムクロック周期
-		parameter _RESET = 1050, // パワーオン・リセット完了までの時間
+		parameter _HALF_CLK = 500, // half width of system clock
+		parameter _FULL_CLK = _HALF_CLK * 2, // system clock width
+		parameter _RESET = 1050, // from power-on to reset sequence completion
 		parameter _delay = 10
 		)
    (

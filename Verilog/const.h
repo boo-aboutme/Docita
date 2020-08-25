@@ -1,5 +1,5 @@
 // -*- mode:Verilog -*-
-// 定数の定義のみを集める
+// constant definitions
 
 //// Opcode 1
 `define OP1_ALU1 3'b000
@@ -12,7 +12,7 @@
 `define OP1_SIHI 3'b111
 
 //// Opcode 2
-// ALU1系
+// ALU1 operations
 `define OP2_ADD 3'b000
 `define OP2_SUB 3'b001
 `define OP2_CMP 3'b010
@@ -20,7 +20,7 @@
 `define OP2_OR  3'b100
 `define OP2_XOR 3'b101
 
-// ALU2系
+// ALU2 operations
 `define OP2_SRL  3'b000
 `define OP2_SRA  3'b001
 `define OP2_SLL  3'b010
@@ -29,22 +29,22 @@
 `define OP2_MOVE 3'b110
 `define OP2_SEXT 3'b111
 
-// MEM系
+// MEM operations
 `define OP2_LDA  3'b000
 `define OP2_LDP  3'b001
 `define OP2_STA  3'b010
 `define OP2_STP  3'b011
 
-// SPCL系(A)
+// SPCL(A) operations
 `define OP2_INCR 3'b000
 `define OP2_DECR 3'b001
 
-// SPCL系(B)
+// SPCL(B) operations
 `define OP2_RDPC 6'b101
 `define OP2_RET  6'b110
 `define OP2_HALT 6'b111
 
-// BRCH系
+// BRCH operations
 `define COND_BAL  3'b000
 `define COND_BZ   3'b001
 `define COND_BNZ  3'b010
@@ -54,11 +54,11 @@
 `define COND_BGEU 3'b110
 //`define COND_BXX 3'b111
 
-// JUMP系
+// JUMP operations
 `define OP2_JALA  3'b000
 `define OP2_JALP  3'b001
 
-// ALU内部のローカルコード
+// local cord used in ALU
 `define ALU_NOP  4'b0000
 `define ALU_ADD  4'b0001
 `define ALU_SUB	 4'b0010

@@ -1,4 +1,4 @@
-// top module: システム全体 TODO
+// top module: top of system
 
 `include "clk_gen.v"
 `include "mem.v"
@@ -7,8 +7,8 @@
 module TOP();
    wire _clk, _reset_n;
    wire [11:0] _addr;
-   wire [11:0] _st_data;	// TODO: 統一したい
-   wire [11:0] _ld_data;	// TODO: 統一したい
+   wire [11:0] _st_data;	// TODO: unite with _ld_data
+   wire [11:0] _ld_data;	// TODO: 
    wire        _cs_n, _memwren_n;
    
    CLK_GEN clk(.oCLK(_clk), .oRESETn(_reset_n));
@@ -56,7 +56,7 @@ module TOP();
       proc.greg._r[4] = 12'o0074;
       proc.greg._r[5] = 12'o0705;
       proc.greg._r[6] = 12'o0006;
-      proc.greg._r[7] = 10;		// 10進数
+      proc.greg._r[7] = 10;		// decimal
    end
 
 endmodule // TOP

@@ -115,15 +115,3 @@ module DECODE(
 endmodule // DECODE
 
 `default_nettype wire
-
-//	3'b011: begin		// misc
-//	end
-//	3'b100: begin		// branch
-//	end
-//	3'b101: begin		// jump
-//	end
-//	3'b110: begin		// set imm lo
-//	end
-//	3'b111: begin		// set imm hi
-//	end
-//

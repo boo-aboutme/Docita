@@ -9,9 +9,9 @@ module CONTROL
     input wire 	      iCLK,
     input wire 	      iENABLE,
     input wire [11:0] iINST,
-    input wire 	      iIS_ZEROn, // すべてのビットがオフ
-    input wire 	      iIS_NEG, // ビット11がオン
-    input wire 	      iIS_POS, // ビット11がオフで、それ以外のどれかがオン
+    input wire 	      iIS_ZEROn, // all bits are zeroes
+    input wire 	      iIS_NEG, // bit 11 is 1
+    input wire 	      iIS_POS, // bit 11 is 0 and there are one or more 1's 
     output reg 	      oFETCH,
     output reg 	      oDECODE,
     output reg 	      oEXEC,
@@ -19,23 +19,23 @@ module CONTROL
     output reg [3:0]  oALU_CTRL,
     output reg [2:0]  oRS1,
     output reg [2:0]  oRS2,
-    output reg [2:0]  oRD,	// TODO: CMP時に zzz にしたい
+    output reg [2:0]  oRD,	// TODO: want to set to z in CMP operation
     output reg 	      oIS_ALU,
     output reg 	      oIS_LOAD,
     output reg 	      oIS_STORE,
     output reg 	      oIS_IMM,
-    output reg [11:0] oIMM,	// 即値
-    output reg 	      oIS_TAKEN, // 分岐成立
+    output reg [11:0] oIMM,	// immediate
+    output reg 	      oIS_TAKEN, // branch is taken
     output reg 	      oIS_JUMP,
     output reg 	      oIS_RDPC,
-    output reg 	      oIS_ABS	// 絶対アドレス
+    output reg 	      oIS_ABS	// absolute address
     );
-   reg [11:0] 	      _inst_loc; // 命令の保持用
+   reg [11:0] 	      _inst_loc; // keep instruction code
    reg [2:0] 	      _rd;
-   reg 		      _en_dest;	    // _rd を oRD に出力するか
-   reg 		      _is_zero_loc; // 分岐条件のホールド
-   reg 		      _is_neg_loc;  // 分岐条件のホールド
-   reg 		      _is_pos_loc;  // 分岐条件のホールド
+   reg 		      _en_dest;	    // output _rd to oRD
+   reg 		      _is_zero_loc; // hold branch condition to next instruction
+   reg 		      _is_neg_loc;  // hold branch condition to next instruction
+   reg 		      _is_pos_loc;  // hold branch condition to next instruction
    reg 		      _is_halt;
    wire 	      _inst_test;
    reg 		      _decode_d;
@@ -70,7 +70,7 @@ module CONTROL
    end
 
    
-   // iINSTに有効なアドレスが来ているかどうか
+   // Does iINST have effective address?
    assign _inst_test = (iINST[0] !== 1'bz) ? 1 : 0;
 
    always @(posedge iCLK) begin
@@ -99,7 +99,7 @@ module CONTROL
 	   oEXEC <= 1;
       end
    end
-   // 咬ませているディレイが異なるので上のalways文とはまとめない
+   // Do not mix the code with the always clause as the delays differ
    always @(posedge iCLK) begin
       if (oDECODE) #_LD begin
 	 oRS1 <= 3'bzzz;
@@ -172,7 +172,7 @@ module CONTROL
 		end
 		`OP2_CMP:  begin
 		   oALU_CTRL <= `ALU_SUB;
-		   _en_dest <= 0; // 強調
+		   _en_dest <= 0; // make sure
 		end
 		`OP2_AND:  begin
 		   oALU_CTRL <= `ALU_AND;
@@ -206,7 +206,7 @@ module CONTROL
 	      endcase // case (_inst_loc[5:3])
 	   end
 	   `OP1_MEM: begin		// load/store
-	      oRS1 <= _inst_loc[2:0];	// TODO: oRS1で正しい？
+	      oRS1 <= _inst_loc[2:0];
 	      oRS2 <= _inst_loc[8:6];	// contains mem address
 	      _en_dest <= 1;
 	      case (_inst_loc[5:3])
@@ -273,7 +273,7 @@ module CONTROL
 	      case (_inst_loc[5:3])
 		`OP2_JALA: oIS_ABS <= 1;
 		`OP2_JALP: oIS_ABS <= 0;
-		default: begin end // 未定義動作
+		default: begin end // undefined behavior
 	      endcase // case (_inst_loc[5:3])
 	   end
            `OP1_SILO: begin
