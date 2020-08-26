@@ -81,7 +81,7 @@ module DECODE(
 	3'b000: begin		// arithmetic/logic
 	   oALLOC <= _p1;
 	   oEXEC <= _p1 & _p2;
-	   oWB <= _p3;		// TODO:
+	   oWB <= _p3;
 	   oRS1 <= _inst_src[8:6];
 	   oRS2 <= _inst_src[2:0];
 	   oRD <= _inst_src[8:6];
@@ -90,7 +90,7 @@ module DECODE(
 	   case (_inst_src[5:3])
 	     `OP2_ADD: oALU_CTRL <= `ALU_ADD;
 	     `OP2_SUB: oALU_CTRL <= `ALU_SUB;
-	     `OP2_CMP: oALU_CTRL <= `ALU_SUB; // TODO:
+	     `OP2_CMP: oALU_CTRL <= `ALU_SUB;
 	     `OP2_AND: oALU_CTRL <= `ALU_AND;
 	     `OP2_OR:  oALU_CTRL <= `ALU_OR;
 	     `OP2_XOR: oALU_CTRL <= `ALU_XOR;
@@ -101,7 +101,7 @@ module DECODE(
 	//end
 	3'b010: begin		// load/store
 	   oALLOC <= _p1;
-	   oWB <= _p3;		// TODO:
+	   oWB <= _p3;
 	   oRS2 <= _inst_src[2:0];
 	   oRD <= _inst_src[8:6];
 	   oEN_DEST <= 1;

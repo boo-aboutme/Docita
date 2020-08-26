@@ -17,8 +17,8 @@ module TOP();
     .iCLK(_clk),
     .iRESETn(_reset_n),
     .iDATA(_ld_data),
-    .oDATA(_st_data), // top.v:20: warning: input port oDATA is coerced to inout.
-    .oADDR(_addr),    // top.v:21: warning: input port oADDR is coerced to inout.
+    .oDATA(_st_data),
+    .oADDR(_addr),
     .oCSELn(_cs_n),
     .oWR_ENn(_memwren_n)
     );

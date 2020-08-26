@@ -101,8 +101,9 @@ module DOCITA
 		.oIS_RDPC(_is_rdpc)
 		);
 
-   assign oADDR = (_fetch | _decode) ? _pc :
-		  (_exec) ? _st_addr : 12'ozzz; // note: high-impedance while wb is on
+   assign oADDR = (_fetch | _decode) ? _pc : // instruction address on fetch & decode
+		  (_exec) ? _st_addr :	     // store address on exec
+		  12'ozzz;		     // high-impedance on wb
    assign oCSELn = ~(_fetch |(_exec & (_is_load | _is_store)));
    assign #`_HALF_CLK _decode_d = _decode;
    assign oWR_ENn = ~(_is_store & _exec);

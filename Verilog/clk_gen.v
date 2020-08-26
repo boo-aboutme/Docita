@@ -1,7 +1,6 @@
 // clk_gen.v
 
 `timescale 1ns/100ps
-//`include "const.h"
 `default_nettype none
 
 module CLK_GEN#(
