@@ -6,10 +6,13 @@
 
 |11|10| 9| 8| 7| 6| 5| 4| 3| 2| 1| 0|
 |-:|-:|-:|-:|-:|-:|-:|-:|-:|-:|-:|-:|
-| 0| 0| 0|  |  |  | 0| 0| 0|  |  |  |
+| 0| 0| 0|rd|rd|rd| 0| 0| 0|rs|rs|rs|
+
+ADD *rd*, *rs*
 
 rd <- rd + rs
 
+Adds registers *rd* and *rs*, stores the result to *rd*
 
 ### 2.  AND - And two registers
 ### 3.  BAL - Branch always
